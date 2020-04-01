@@ -1,0 +1,68 @@
+{% extends 'sidebar.html.twig' %}
+{% block Textes %}
+ Ceci est un test
+{% endblock %}
+{% block role %}
+   reecritude de role
+{% endblock %}
+{% block content %}
+     {{ parent() }}
+     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+         
+                <div class="collapse navbar-collapse" id="navbarColor01">
+                  <ul class="navbar-nav mr-auto">
+                     <li class="nav-item"><a class="nav-link" href="{{ path('user_index')}}">Tous <span class="sr-only">(current)</span></a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{ path('user_index_role',{'role': 'Admin'}) }}">Admin </a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{ path('user_index_role',{'role': 'Etudiant'}) }}">Etudiant</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{ path('user_index_role',{'role': 'Professeur'}) }}">Professeur</a></li>
+                     <li class="nav-item"><a class="nav-link" href="{{ path('user_index_role',{'role': 'Parent'}) }}">Parent</a></li>
+                  </ul>
+                <form class="form-inline my-2 my-lg-0" id="frmsearch" method="GET">
+                    <input class="form-control mr-sm-2" type="text" name ="search" placeholder="Recherche par nom">
+                     <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="sb">
+                      <i class="fas fa-search" style="font-size:24px"></i>
+                     </button>
+                     <a class="btn btn-secondary my-2 my-sm-0" href="{{ path('user_new') }}"><i class="fas fa-plus" style="font-size:24px"></i></a>
+                </form>
+              </div>
+            </nav>
+            
+  <div> 
+    {%  if users|length >  0 %}       
+    <table class="table table-hover">
+        <thead>     
+            <tr class="table-primary">
+                <th scope="col">Id</th>
+                <th scope="col">Role</th>
+                <th scope="col">Utilisateur</th>
+                <th scope="col">Email</th>
+                <th scope="col">actions</th>
+            </tr>
+        </thead>  
+       {% for user in users %} 
+        <tr class="table-Active">
+            <td>{{ user.id}}</td>
+            <td>{% for r in user.roles %} <span>{{ r }}</span> {% endfor %}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <a href="{{ path('user_edit', {'id': user.id}) }}"><i class="fas fa-edit" style="font-size:18px"></i></a>
+                <a href="{{ path('user_delete', {'id': user.id}) }}"><i class="fas fa-trash" style="font-size:18px"></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% elseif  users|length == 0 %} 
+       <p>Aucun element trouve</p>
+    {% endif %}
+     
+</div>
+  {% endblock %}
+
+  {% block sidebar %}
+    {{ parent() }}
+{% endblock %}

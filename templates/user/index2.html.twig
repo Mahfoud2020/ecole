@@ -1,0 +1,78 @@
+{% extends 'sidebar.html.twig' %}
+
+{% block title %}Gestion des utilisateurs{% endblock %}
+
+{% block body %}
+{% if app.user %}
+<h3>Admin dashboard</h3>
+
+        <h3>Bienvenue {{ app.user.username }}. Vous etes connectes</h3>
+<h3>Liste des utilisateurs</h3>
+<hr>
+
+<div class="mx-3 my-2" > 
+<div class="row">
+    <div class="col-6">
+    <table class="table table-hover">
+        <thead>     
+            <tr class="table-primary">
+                <th scope="col">id</th>
+                <th scope="col">Role</th>
+                <th scope="col">Utilisateur</th>
+                <th scope="col">Email</th>
+                <th scope="col">actions</th>
+            </tr>
+        </thead>  
+          
+        {% for user in users %} 
+        <tr class="table-Active">
+            <td>{{ user.id}}</td>
+            <td>{{ user.nom }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>
+                <a href="{{ path('user_edit', {'id': user.id}) }}">Editer</a>
+                <a href="{{ path('user_delete', {'id': user.id}) }}">Supprimer</a>
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <div class="col-3">
+            <div class="card">
+                <div class="card-header">Filtre par Role</div>
+                <div class="card-body">
+                    <div class="list-group">
+                      <a href="{{ path('user_index')}}">Tous</a>
+                      <a href="{{ path('user_index_role',{'role': 'Admin'}) }}">Admin</a>
+                      <a href="{{ path('user_index_role',{'role': 'Professeur'}) }}">Professeur</a>
+                      <a href="{{ path('user_index_role',{'role': 'Etudiant'}) }}">Etudiant</a>
+                   </div>
+                </div>
+                </div>
+
+                  <div class="card">
+                        <div class="card-header">Filtre par Utilisateur</div>
+                        
+                          <div class="card-body">
+                          <div class="form-group">
+                                <input type="text" class="form-control" id="Nom" placeholder="Taper le nom ici...">
+                                <button class="btn btn-primary" value="cliquer" onclick= "window.location.assign('http://localhost:8000/user/name/'+ document.getElementById('Nom').value);">Chercher</button>
+                            </div>
+                      </div>
+                    
+
+                <hr>
+                 <a href="{{ path('user_new')}}">Ajouter un nouveau</a>
+
+    </div>
+</div>
+{% else %}
+<div class="panel">
+    <h3>Desole.. vous n'etes pas connectes</h3>
+</div>
+{% endif %}
+
+{% endblock %}
+

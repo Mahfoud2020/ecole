@@ -1,0 +1,9 @@
+{% extends 'sidebar.html.twig' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+     <legend>Formulaire Mise a jour d'utilisateur</legend>
+     {{ include('user/_form.html.twig', {'button_label': 'Modifier'}) }}
+{% endblock %}   

@@ -1,0 +1,9 @@
+{% extends 'sidebar.html.twig' %}
+
+{% block title %}Nouveau utilisateur{% endblock %}
+
+{% block content %}
+     {{ parent() }}
+     <legend>Formulaire Creation d'utilisateur</legend>
+     {{ include('user/_form.html.twig', {'button_label': 'Enregistrer'})}}
+{% endblock %}  
